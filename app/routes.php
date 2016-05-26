@@ -85,83 +85,10 @@ Route::group(array('before'=>'auth_user'),function(){
 
     });
 
-	//ruta para registro de tipos de personas
-	Route::group(array('prefix' => '/tipo_persona'), function(){
-    	Route::get('/', array('as'=>'tipo_persona', 'uses' => 'TipopersonaController@mostrarTipopersona'));
-    	Route::get('/nuevo', 'TipopersonaController@nuevo');
-		Route::post('/nuevo', 'TipopersonaController@nuevo');
-		Route::get('/editar/{id}', 'TipopersonaController@editarTipopersona');
-	    Route::post('/editar', 'TipopersonaController@guardarTipopersona');
-	    Route::get('/eliminar/{id}', 'TipopersonaController@eliminarTipopersona');
-	    Route::post('/eliminar/{id}', 'TipopersonaController@eliminarTipopersona');
-	    Route::get('/listarrequisitos/{id}','TipopersonaController@listarrequisitosTipopersona');
-	    Route::post('/listarrequisitos/{id}','TipopersonaController@listarrequisitosTipopersona');
-	    Route::post('/nuevorequisito/{id}', 'TipopersonaController@nuevorequisitoTipopersona');
-	    Route::get('/nuevorequisito/{id}', 'TipopersonaController@nuevorequisitoTipopersona');
-	    Route::get('/eliminarrequisito/{id}/{id_tipo_persona}', 'TipopersonaController@eliminarrequisitoTipopersona');
-	    Route::post('/eliminarrequisito/{id}/{id_tipo_persona}', 'TipopersonaController@eliminarrequisitoTipopersona');
-    });
-
-	//ruta para registro de cursos
-	Route::group(array('prefix' => '/cursos'), function(){
-    	Route::get('/', array('as'=>'cursos', 'uses' => 'CursoController@mostrarCurso'));
-    	Route::get('/nuevo', 'CursoController@nuevo');
-		Route::post('/nuevo', 'CursoController@nuevo');
-		Route::get('/editar/{id}', 'CursoController@editarCurso');
-	    Route::post('/editar', 'CursoController@guardarCurso');
-	    Route::get('/eliminar/{id}', 'CursoController@eliminarCurso');
-	    Route::post('/eliminar/{id}', 'CursoController@eliminarCurso');
-	});
 
 
 
-    //Municipios
-	Route::group(array('prefix' => '/municipios'), function(){
-	    Route::get('/', array('as'=>'municipios', 'uses' => 'MunicipiosController@mostrarMunicipios'));
-	    Route::get('/nuevo', 'MunicipiosController@nuevoMunicipio');
-	    Route::post('/nuevo', 'MunicipiosController@crearMunicipio');
-	    Route::get('/editar/{id}', 'MunicipiosController@editarMunicipio');
-	    Route::post('/editar', 'MunicipiosController@guardarMunicipio');
-	    Route::get('/eliminar/{id}', 'MunicipiosController@eliminarMunicipio');
-	    Route::post('/eliminar/{id}', 'MunicipiosController@eliminarMunicipio');
 
-	});
-
-	//Requisitos
-	Route::group(array('prefix' => '/requisitos'), function(){
-	    Route::get('/', array('as'=>'requisitos', 'uses' => 'RequisitosController@mostrarRequisitos'));
-	    Route::get('/nuevo', 'RequisitosController@nuevoRequisito');
-	    Route::post('/nuevo', 'RequisitosController@nuevoRequisito');
-	    Route::get('/editar/{id}', 'RequisitosController@editarRequisito');
-	    Route::post('/editar', 'RequisitosController@guardarRequisito');
-	    Route::get('/eliminar/{id}', 'RequisitosController@eliminarRequisito');
-	    Route::post('/eliminar/{id}', 'RequisitosController@eliminarRequisito');
-		Route::get('/tipopersona/{id}', 'RequisitosController@porTipoPersona');
-
-	});
-
-    //Asesores
-	Route::group(array('prefix' => '/asesores'), function(){
-	    Route::get('/',  array('as'=>'asesores', 'uses'=>'AsesoresController@mostrarAsesores'));
-
-        Route::get('/nuevo', 'AsesoresController@nuevo');
-	    Route::post('/nuevo', 'AsesoresController@guardarNuevo');
-
-        Route::get('/editar/{id}', 'AsesoresController@editar');
-        Route::post('/editar', 'AsesoresController@guardarEditar');
-
-        Route::get('/eliminar/{id}', 'AsesoresController@eliminar');
-        Route::post('/eliminar', 'AsesoresController@eliminarAsesor');
-
-        Route::get('/listarcursos/{id}', 'AsesoresController@listarCursos');
-        Route::post('/listarcursos/{id}', 'AsesoresController@listarCursos');
-
-        Route::post('/nuevocurso/{id}', 'AsesoresController@nuevocursoAsesor');
-	    Route::get('/nuevocurso/{id}', 'AsesoresController@nuevocursoAsesor');
-
-	    Route::get('/eliminarcurso/{id_curso}/{id}', 'AsesoresController@eliminarcurso');
-	    Route::post('/eliminarcurso/{id_curso}/{id}', 'AsesoresController@eliminarcurso');
-	});
 });
 
 

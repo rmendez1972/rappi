@@ -229,7 +229,7 @@ $( document ).ready(function() {
     {{Form::input("submit", null, "Enivar", array("class" => "btn btn-primary"))}}
     <a href="{{ URL::to('/cubo') }}">{{ Form::button('Cancelar', array('class' => 'btn')) }}</a>
 </div>
-<!-- <input id="boton" type="button" name="boton" value="Enviar"/> -->
+ <input id="boton" type="button" name="boton" value="Enviar"/>
 
 <!-- </form> -->
 {{Form::close()}}
@@ -237,9 +237,9 @@ $( document ).ready(function() {
 <div id="respuesta">
     Resultados
 </div>
-/*<?php
+<?php
 }
-?>*/
+?>
 
 
 

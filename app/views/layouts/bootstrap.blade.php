@@ -104,7 +104,7 @@
                 <div class="btn-group">
                   <li class="{{$current['registro']}}"><a  class="hi-icon hi-icon-pencil" data-toggle="ropown" data-hover="dropdown">Cubo</a>
                     <ul class="dropdown-menu"  >
-                      <li><a href="{{URL::route('cubo')}}">Suma de Cubo</a></li>
+                      <li><a href="/rappi/vista.php">Suma de Cubo</a></li>
 
                     </ul>
                   </li>
