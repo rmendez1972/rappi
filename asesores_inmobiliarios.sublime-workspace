@@ -1,0 +1,373 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"htms",
+				"htmlspecialchars"
+			],
+			[
+				"t",
+				"text	.text()"
+			],
+			[
+				"Input",
+				"Input-get	Input-get"
+			],
+			[
+				"In",
+				"Input::get	Retrieve an Input value"
+			],
+			[
+				"H",
+				"HomeController"
+			],
+			[
+				"ti",
+				"title	Tag"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/views/layouts/bootstrap.blade.php",
+			"settings":
+			{
+				"buffer_size": 5152,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"snippet",
+				"Snippet: blade-for"
+			],
+			[
+				"file",
+				"File: Close All"
+			]
+		],
+		"width": 904.0
+	},
+	"console":
+	{
+		"height": 174.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/wamp2.5/apps/asesores_inmobiliarios/asesores_inmobiliarios.sublime-project",
+		"/C/wamp2.5/apps/primerproyecto/app/config/app.php",
+		"/C/wamp2.5/apps/primerproyecto/app/config/view.php",
+		"/C/wamp2.5/apps/primerproyecto/app/config/database.php",
+		"/C/Users/rmendez1972/AppData/Roaming/Sublime Text 2/Packages/User/TortoiseSVN.sublime-settings",
+		"/C/Users/rmendez1972/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/rmendez1972/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/wamp2.5/apps/primerproyecto/app/views/HomeController/contacto.blade.php",
+		"/C/wamp2.5/apps/primerproyecto/app/config/mail.php",
+		"/C/wamp/www/cfd2012/correo.php",
+		"/C/wamp2.5/apps/primerproyecto/app/views/hello.php",
+		"/C/wamp2.5/apps/primerproyecto/app/views/layouts/master.blade.php",
+		"/C/wamp2.5/apps/primerproyecto/public/.htaccess",
+		"/C/wamp2.5/alias/primerproyecto.conf",
+		"/C/wamp2.5/bin/apache/apache2.4.9/conf/httpd.conf",
+		"/C/Users/rmendez1972/Documents/pythonProjects/primerproyecto/hola.py",
+		"/C/wamp2.5/alias/phpmyadmin.conf",
+		"/C/wamp2.5/apps/phpmyadmin4.1.14/config.inc.php",
+		"/C/Users/rmendez1972/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/C/Users/rmendez1972/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
+		"/C/Users/rmendez1972/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/rmendez1972/Documents/nodeProjects/passportjs-example/config.js",
+		"/C/Users/rmendez1972/Documents/nodeProjects/passportjs-example/app.js",
+		"/C/Users/rmendez1972/Documents/nodeProjects/passportjs-example/passport.js",
+		"/C/Users/rmendez1972/Documents/nodeProjects/passportjs-example/models/user.js",
+		"/C/Users/rmendez1972/Documents/nodeProjects/passportjs-example/views/index.jade",
+		"/C/Users/rmendez1972/Documents/nodeProjects/passportjs-example/routes/index.js",
+		"/C/Users/rmendez1972/Documents/nodeProjects/movieCRUD/routes/index.js",
+		"/C/Users/rmendez1972/Documents/nodeProjects/movieCRUD/routes/user.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/angular-app2/server/initDB.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/angular-app2/client/package.json",
+		"/C/Users/rmendez1972/Documents/angularProjects/angular-app2/server/package.json",
+		"/C/Users/rmendez1972/Documents/angularProjects/tvshow-tracker/public/templates.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/tvshow-tracker/public/controllers/main.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/tvshow-tracker/public/services/auth.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/tvshow-tracker/public/services/show.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/tvshow-tracker/package.json",
+		"/C/Users/rmendez1972/Documents/angularProjects/tvshow-tracker/public/vendor/angular-cookies.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/angular-app/server/gruntFile.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/angular-app/server/test/mongo-initdb.js",
+		"/C/Users/rmendez1972/Documents/angularProjects/angular-phonecat/app/phones/phones.json"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"<div",
+			"	<",
+			"<h1>",
+			"nombre",
+			"subject",
+			"name",
+			"nombre",
+			"name",
+			"maxclients",
+			"max",
+			"field",
+			"fields",
+			"Limit",
+			"LimitRequest",
+			"mod_rewrite",
+			"ErrorDocument",
+			"alias",
+			"Directory",
+			"secret",
+			"provider",
+			"users",
+			"movies",
+			"schema",
+			"show",
+			"ng-show",
+			"mail",
+			"pageClass",
+			"import",
+			"');\n",
+			"@import url"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/views/layouts/bootstrap.blade.php",
+					"settings":
+					{
+						"buffer_size": 5152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4015,
+								4015
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1567.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 142.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 219.0,
+	"status_bar_visible": true
+}

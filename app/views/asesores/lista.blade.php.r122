@@ -1,0 +1,72 @@
+@extends('layouts.bootstrap')
+
+@section('content')
+
+	<div style="margin-top:20px;color:black">
+			{{ HTML::link('/asesores/nuevo', '',array('class' =>'hi-perfil glyphicon-file','title'=>'Nuevo')) }}
+			{{ HTML::link('/reportes/asesores', '',array('class' =>'hi-perfil glyphicon-print','title'=>'Imprimir','target' => '_blank')) }}
+			{{Session::get("mensage")}}
+		<div style="float:right">
+			{{Form::open(array
+
+					(
+						'action'=>'AsesoresController@mostrarAsesores',
+						'method'=>'GET',
+						'role'=>'form',
+						'class'=>'form-inline'
+						/*'files'=>'true'*/
+				))}}
+				{{Form::input('text','buscar',Input::get('buscar'), array('class'=>'form-control'))}}
+				{{Form::input('submit',null,'Buscar', array('class'=>'btn btn-primary'))}}
+			{{Form::close()}}
+
+		</div>
+	</div>
+	<hr>
+	<div class="panel panel-default" style="margin-top:20px">
+		<div class="panel-heading">Asesores Inmobiliarios</div>
+		<div class="panel-body">
+			<table class="table">
+				<thead>
+					<th>Nombre/Razón social</th>
+					<th>RFC</th>
+					<th>Tipo de persona</th>
+					<th>Municipio</th>
+					<th>Colonia/región</th>
+					<th>C.P.</th>
+					<th>Tel.</th>
+					<th width="28%">Acciones</th>
+				</thead>
+				<tbody>
+					@foreach($asesores as $asesor)
+						<tr>
+							<td>{{ $asesor->nombre_razon." ".$asesor->apellido_paterno." ".$asesor->apellido_materno }}</td>
+							<td>{{ $asesor->rfc }}</td>
+							<td>{{ $asesor->tipoPersona()->first()->descripcion_tipo_persona }}</td>
+							<td>{{ $asesor->municipio()->first()->nombre_municipio }}</td>
+							<td>{{ $asesor->colonia_region }}</td>
+							<td>{{ $asesor->codigo_postal }}</td>
+							<td>{{ $asesor->telefono." ".$asesor->celular }}</td>
+							<td width=33%>
+								{{ HTML::link('/asesores/editar/'.$asesor->id, '', array('class' =>'hi-perfil glyphicon-pencil width:10px','title'=>'editar asesor')) }}
+								{{ HTML::link('/asesores/eliminar/'.$asesor->id, '',array('class' =>'hi-perfil  glyphicon-trash width:10px','title'=>'eliminar asesor')) }}
+								{{ HTML::link('/reportes/requisitos_asesor/'.$asesor->id,'',array('class' =>'hi-perfil glyphicon-th-list','title'=>'Acuse de Recibo de Requisitos entregados','target'=>'_blank')) }}
+								{{ HTML::link('/asesores/listarcursos/'.$asesor->id, '',array('class' =>'hi-perfil  glyphicon-book width:10px','title'=>'listado de cursos')) }}
+								{{ HTML::link('/reportes/matricula_asesor/'.$asesor->id, '',array('class' =>'hi-perfil  glyphicon-barcode width:10px','title'=>'Imprimir matrícula con firma Secretario','target' => '_self')) }}
+								{{ HTML::link('/reportes/matricula_asesor_subsecretaria/'.$asesor->id, '',array('class' =>'hi-perfil  glyphicon-barcode width:10px','title'=>'Imprimir matrícula con firma de Subsecretaria','target' => '_self')) }}
+								{{ HTML::link('/reportes/credencial_asesor/'.$asesor->id, '',array('class' =>'hi-perfil  glyphicon-user width:10px','title'=>'Imprimir credencial','target' => '_self')) }}
+								{{ HTML::link('/reportes/acuserecibo_asesor/'.$asesor->id, '',array('class' =>'hi-perfil  glyphicon-list-alt width:10px','title'=>'Acuse de recibo de Documentos entregados','target' => '_blank')) }}
+							</td>
+							<td></td>
+						</tr>
+					@endforeach
+				</tbody>
+
+			</table>
+			<div>
+				{{$asesores->appends(array("buscar"=>Input::get("buscar")))->links()}}
+
+			</div>
+		</div>
+	</div>
+@stop
