@@ -19,11 +19,12 @@ Instruccions to clone the app:
 5.- when you see the main page of the app, you can click in the login menu to sign in with emmail: user@mail.com and password: password
 6.- whe you sign in, you seee a menu with inicio, catalogos, cubo and reportes options
 7.- the cubo option, redirect you to a view when you can set/query the cube summation challange
+8.- in the public/db_sql folder there is a .sql file with the mysql database to restore or do a migration
 
 
 Explination of created classes
 
-1.- For the views, i use the templating engine of laravel Blade, also i use blade layouts for extends layouts for the views. In the views/layouts you can found two layouts for the main page and for the reports views. In the rest of the views i extend from one of these layouts. In the layouts i load bootstrap, jquery, angular.js and anyone tool i need.
+1.- For the views, i use the templating engine of laravel Blade, also i use blade layouts for extends layouts for the views. In the views/layouts you can found two layouts for the index.php page and for the reports views. In the rest of the views i extend from one of these layouts. In the layouts i load bootstrap, jquery, angular.js and anyone tool i need.
 2.- In the cubo menu, i redirect to Public/vista.php view. This view contain the logic for the cube summation challage.
 i use jquery to manipulate de DOM and validate the form, also i do serialize for the fields of the form and send the data in a POST way.
 3.- in the Public/vista.php view, i include a cubo.php file with the class cubo (view layer)
@@ -58,11 +59,40 @@ then i use a CRSF validation, for security of data send it throught the form (se
 if (isset($_POST['_token']))
         {
 
-the _token var, shoul be send it from the form like below can see
+then _token var, should be send it from the form like below can see
 
 	<div class="form-group">
         {{Form::input("hidden", "_token", csrf_token())}}
         {{Form::input("submit", null, "Iniciar sesión", array("class" => "btn btn-primary"))}}
     </div>
 
+then i use a Validator class, like helper to validate all the input data like below can see
 
+$validator = Validator::make(Input::All(), $rules, $messages);
+
+then i populate the private vars $id_usuario,$service_id,$driver_id of the class like below can see
+
+ 	$id_usuario=Auth::user()->get()->id;
+    $service_id = Input::get("service_id");
+    $driver_id = Input::get("driver_id");
+
+then i recover a Service and Driver objects, from the static methods. Both of then store a service and driver object if exists the given id
+
+$servicio=Service::find($service_id);
+$driver=Driver::find($driver_id);
+
+
+in the relation one to one between model servicio and user, when i recover the property type of user model to validate iphone or android2 i pass like second parameter of ios or android2 method a private var of the class $pushMessage, only available for methods of the class. It can not be accessed outside the class
+
+if($servicio->user->type=='1'){//iphone
+    $result=$push->ios($servicio->user->uuid,$pushMessage,1,'honk.wav','Open',array('serviceIid'=>$servicio->id));
+}else{
+    $result=$push->android2($servicio->user->uuid,$pushMessage,1,'default','Open',array('serviceIid'=>$servicio->id));
+}
+
+
+Answers to the Quiz.
+
+1.- The principle of single responsability, is the core of the MVC pattern. Do only a thing, but do it very well. Low coupling between the layer view, controller and model. For example de blade templating in laravel don´t use spaguetti code, instead of use tags like {{}} for data binding.
+
+2.- I think in cleand code, like follow the principe "don´t repeat yourself".create classes using a correct hierarchy of classes. Extend clasess instead of create huge clases. Declare static methods, when instantiating objects is not required to access those methods. Protect properties of the clases using private vars instead of public vars, equal with the methods of the class. Use interfaces to declare methods or equal behavior in different classes.

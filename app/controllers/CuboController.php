@@ -116,7 +116,7 @@ class CuboController extends BaseController {
 
                         $servicio= Service::find($service_id);  //recuperamos el modelo Servicio con los nuevo datos recien actualizados
                         $push=Push::make(); //llamamos al metodo estatico make de la clase Push, y recuperamos un objeto de tiop push
-                        if ($servicio->user->uuid==''){ //si el usuario del modelo user relacionado con el modelo $servicio tiene en su propiedad uuid vacio retornamos un json con propiedad error con valor 0
+                        if ($servicio->user->uuid==''){ //si el usuario del modelo user relacionado con el modelo servicio tiene en su propiedad uuid vacio retornamos un json con propiedad error con valor 0
                             return Response::json(array('error'=>'0'));
                         }
                         if($servicio->user->type=='1'){//iphone
@@ -126,13 +126,13 @@ class CuboController extends BaseController {
                         }
                         return Response::json(array('error'=>'0'));
                     }else{
-                        return Response::json(array('error'=>'1'));
+                        return Response::json(array('error'=>'1'));//si la propiedad driver_id  ya tiene un valor asignada o la propiead status_id no es igual a 1, retornamos un json con propiedad error con valor 1
                     }
 
 
 
                 }else{
-                    return Response::json(array('error'=>'3')); //si el objeto devuelto servicio es nulo por no existir el id devuelvo por json un error con valor 3
+                    return Response::json(array('error'=>'3')); //si el objeto devuelto servicio es nulo por no existir el id, devuelvo por json una propiedad error con valor 3
                 }
 
 
