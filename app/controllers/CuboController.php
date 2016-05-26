@@ -1,170 +1,144 @@
 <?php
 class CuboController extends BaseController {
 
-    /**
-     * Mustra la lista con todos los usuarios
-     */
-    private $cubo;
-    private $sum;
 
-    public function index()
+
+    public function post_confirm()
     {
+        $id=Input::get('service_id'); //recibo por get el id de un servicio
+        $servicio=Service::find($id); //llamo a un método estático de la clase Service para localizar el servicio
+        if ($servicio != NULL){   //si el objeto devuelto es nulo
+            if ($servicio->status_id=='6'){ // si la propiedad  status_id del objeto servicio devuelto tiene valor 6 devuelvo json error con valor 2
+                return Response::json(array('error'=>'2'));
+            }
+
+            if ($servicio->driver_id == NULL && $servicio->status_id=='1'){ //si  la propiedad driver_id del objeto servicio devuelto es NULO y además la propiedad status_id del objeto tiene valor 1
+                $servicio = Service::update($id, array( // llamo al método estático update de la clase Service y actualizo las propiedades driver_id con el valor recuperado por get driver_id y actualizo la propiedad status_id con el valor 2
+                        'driver_id' => Input::get('driver_id'),
+                        'status_id' => '2'
+                ));
+                Driver::update(Input::get('driver_id'), array( // como ya actualice la propiedad driver_id de la clase Service, tambien tengo que actualizar la propiedad available de la clase Driver, llamo al metodo estático update y actualizo la propiedad a valor 0
+                        "available"=>'0'
+                    ));
+                $driverTmp = Driver::find(Input::get('driver_id')); // vuelvo a localizar el driver llamando al metodo estatico find de la clase Driver pasandole el parámetro driver_id
+                Service::update($id,array(
+                        "car_id" =>$driverTmp->car_id //llamo al metodo estatico update de la clase Service para actualizar la propiedad car_id  con el valor de la propiedad car_id del objeto driverTmp
+                ));
+                $pushMessage= 'Tu servicio ha sido confirmado!';
+                $servicio= Service::find($id);
+                $push=Push::make();
+                if ($servicio->user->uuid==''){
+                    return Response::json(array('error'=>'0'));
+                }
+                if($servicio->user->type=='1'){//iphone
+                    $result=$push->ios($servicio->user->uuid,$pushMessage,1,'honk.wav','Open',array('serviceIid'=>$servicio->id));
+                }else{
+                    $result=$push->android2($servicio->user->uuid,$pushMessage,1,'default','Open',array('serviceIid'=>$servicio->id));
+                }
+                return Response::json(array('error'=>'0'));
+            }else{
+                return Response::json(array('error'=>'1'));
+            }
+        }else{
+            return Response::json(array('error'=>'3')); //si el objeto devuelto servicio es nulo devuelvo por json un error con valor 3
+        }
+
+    }
+
+
+
+
+    //refactoring the above code
+    public function post_confirm_refactorized(){
+
+        private $pushMessage= 'Tu servicio ha sido confirmado!';
+        private $service_id;
+        private $driver_id;
+        private $id_usuario;
+        private $servicio;
+        private $driver;
+
+        //primero validamos si existe entre los datos recibidos por post una variable _token para proteccion CSRF
         if (isset($_POST['_token']))
         {
+            //declaramos arrray con reglas de validación de los datos recibidos por método POST
             $rules = array
             (
-            /*'nombre_usuario' => 'required|regex:/^[a-záéóóúàèìòùäëïöüñ\s]+$/i|min:3|max:80',
-            'usuario' => 'required|unique:usuarios|regex:/^[a-z0-9áéóóúàèìòùäëïöüñ\s]+$/i|min:3|max:20',
-            'email' => 'required|email|unique:usuarios|between:3,80',
-            'password' => 'required|regex:/^[a-z0-9]+$/i|min:8|max:16',
-            'nivel_acceso' => 'required|regex:/^[0-9]+$/i|min:1|max:2',
-            'repetir_password' => 'required|same:password',
-            "src" => "required|max:10000|mimes:jpg,jpeg,png,gif,svg", //10000 kb
-            'terminos' => 'required',*/
+
+                'service_id' => 'required|regex:/^[0-9]+$/i|min:1',
+                'driver_id' => 'required|same:service_id'
+
             );
 
+            //declaramos un array con mensajes personalizados a las reglas de validacion
             $messages = array
             (
-                /*'nombre_usuario.required' => 'El campo nombre de usuario es requerido',
-                'nombre_usuario.regex' => 'Sólo se aceptan letras y números',
-                'nombre_usuario.min' => 'El mínimo permitido son 3 caracteres',
-                'nombre_usuario.max' => 'El máximo permitido son 80 caracteres',
-                'usuario.required' => 'El campo nombre es requerido',
-                'usuario.regex' => 'Sólo se aceptan letras',
-                'usuario.min' => 'El mínimo permitido son 3 caracteres',
-                'usuario.max' => 'El máximo permitido son 20 caracteres',
-                'usuario.unique' => 'El usuario ya se encuentra registrado',
-                'email.required' => 'El campo email es requerido',
-                'email.email' => 'El formato de email es incorrecto',
-                'email.unique' => 'El email ya se encuentra registrado',
-                'email.between' => 'El email debe contener entre 3 y 80 caracteres',
-                'password.required' => 'El campo password es requerido',
-                'password.regex' => 'El campo password sólo acepta letras y números',
-                'password.min' => 'El mínimo permitido son 8 caracteres',
-                'password.max' => 'El máximo permitido son 16 caracteres',
-                'nivel_acceso.required' => 'El campo nivel de acceso es requerido',
-                'nivel_acceso.regex' => 'Sólo se aceptan  números',
-                'nivel_acceso.min' => 'El mínimo permitido es 1 digito',
-                'nivel_acceso.max' => 'El máximo permitido son 2 digitos',
-                'repetir_password.required' => 'El campo repetir password es requerido',
-                'repetir_password.same' => 'Los passwords no coinciden',
-                "src.required" => "Es requerido subir una imagen",
-                "src.max" => "El tamaño máximo de la imagen son 10000kb",
-                "src.mimes" => "El archivo que pretendes subir debe ser tipo .jpg/.png/.gif/.svg",
-                'terminos.required' => 'Tienes que aceptar los términos',*/
+                'service_id.required' => 'El service_id es requerido',
+                'service_id.regex' => 'El dato service_id sólo acepta números',
+                'service_id.min' => 'El mínimo permitido es 1',
+
+                'driver_id.required' => 'El service_id es requerido',
+                'driver_id.regex' => 'El dato service_id sólo acepta números',
+                'driver_id.min' => 'El mínimo permitido es 1'
+
+
             );
 
+            //llamamos al metodo estatico de la clase Validator de laravel, para validar todos los input pasados por métodos POST, se le aplican las reglas de validacion recientemente creados, y los mensajes para cada violación a cada regla de validacion
             $validator = Validator::make(Input::All(), $rules, $messages);
 
-            if ($validator->passes())
+            if ($validator->passes()) // si la validacion es exitosa el metodo passes() devolvera true y por lo tanto continuara la ejecución
             {
-                //Guardar los datos en la tabla usuarios
-                $nombre_usuario = input::get('nombre_usuario');
-                $user = input::get('usuario');
-                $email = input::get('email');
-                $password = Hash::make(input::get('password'));
-                $nivel_acceso =  input::get('nivel_acceso');
-                $src = $_FILES['src']; //recuperamos imagen de variable global en formato vector
+                //recuperamos el id de usuario authenticado , el service_id  y el driver_id pasados por método POST
+                $id_usuario=Auth::user()->get()->id;
+                $service_id = Input::get("service_id");
+                $driver_id = Input::get("driver_id");
 
-                $ruta_imagen = "assets/imagenes/avatars/";
-                //$imagen = rand(1000, 9999)."-".$src["name"];
-                $imagen = $src["name"];
-                //subimos la imagen a la ruta /public/assets/imagenes/avatars
-                move_uploaded_file($src["tmp_name"], $ruta_imagen.$imagen);
+                $servicio=Service::find($service_id); //recuperamos una instancia del modelo Service cuyo service_id tiene el valor anteriormente recuperado, llamando al método estatico find
+                $driver=Driver::find($driver_id); //recuperamos una instancia del modelo Driver cuyo driver_id tiene el valor anteriormente recuperado
+
+                if ($servicio != NULL && $driver != NULL){
+                    if ($servicio->status_id=='6'){ // si la propiedad  status_id del objeto servicio devuelto tiene valor 6 devuelvo json error con valor 2
+                         return Response::json(array('error'=>'2'));
+                    }
+
+                    if ($servicio->driver_id == NULL && $servicio->status_id=='1'){ //si  la propiedad driver_id del objeto servicio devuelto es NULO y además la propiedad status_id del objeto tiene valor 1
+                        $servicio = Service::update($service_id, array( // llamo al método estático update de la clase Service y actualizo las propiedades driver_id con el valor recuperado por get driver_id y actualizo la propiedad status_id con el valor 2
+                                'driver_id' => $driver_id,
+                                'status_id' => '2',
+                                "car_id" =>$driver->car_id
+                        ));
+                        Driver::update($driver_id, array( // como ya actualice la propiedad driver_id de la clase Service, tambien tengo que actualizar la propiedad available de la clase Driver, llamo al metodo estático update y actualizo la propiedad a valor 0
+                                "available"=>'0'
+                            ));
+                        //$driverTmp = Driver::find(Input::get('driver_id')); // vuelvo a localizar el driver llamando al metodo estatico find de la clase Driver pasandole el parámetro driver_id
 
 
-                $conn = DB::connection('mysql');
-                $sql = "INSERT INTO usuarios(nombre_usuario,usuario, email, password, nivel_acceso,active,src) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                $conn->insert($sql, array($nombre_usuario,$user, $email, $password, $nivel_acceso,1,$ruta_imagen.$imagen));
+                        $servicio= Service::find($service_id);  //recuperamos el modelo Servicio con los nuevo datos recien actualizados
+                        $push=Push::make(); //llamamos al metodo estatico make de la clase Push, y recuperamos un objeto de tiop push
+                        if ($servicio->user->uuid==''){ //si el usuario del modelo user relacionado con el modelo $servicio tiene en su propiedad uuid vacio retornamos un json con propiedad error con valor 0
+                            return Response::json(array('error'=>'0'));
+                        }
+                        if($servicio->user->type=='1'){//iphone
+                            $result=$push->ios($servicio->user->uuid,$pushMessage,1,'honk.wav','Open',array('serviceIid'=>$servicio->id));
+                        }else{
+                            $result=$push->android2($servicio->user->uuid,$pushMessage,1,'default','Open',array('serviceIid'=>$servicio->id));
+                        }
+                        return Response::json(array('error'=>'0'));
+                    }else{
+                        return Response::json(array('error'=>'1'));
+                    }
 
 
-                $mensage = "<h3><label class='label label-info'>Usuario registrado exitosamente</label></h3>";
-                return Redirect::route('usuarios')->with("mensage", $mensage);
-                //return View::make('HomeController.register',array('mensage'=>$mensage));
-            }
-            else
-            {
-                return Redirect::back()->withInput()->withErrors($validator);
-            }
 
-        }
-        $mensage=null;
-        return View::make('CuboController.index',array('mensage'=>$mensage));
-
-    }
-
-    public function inicializar()
-    {
-        $x=1;
-        $y=1;
-        $z=1;
-        $fx=4;
-        $fy=4;
-        $fz=4;
-        for($x=1;$x<$fx;$x++)
-        {
-            for($y=1;$y<$fy;$y++){
-
-                for($z=1;$z<$fz;$z++)
-                {
-                    $this->cubo[$x][$y][$z]=0;
-
+                }else{
+                    return Response::json(array('error'=>'3')); //si el objeto devuelto servicio es nulo por no existir el id devuelvo por json un error con valor 3
                 }
 
-            }
+
 
         }
 
-    }
-
-
-    public function getcubo(){
-
-        return $this->cubo;
-    }
-
-    public function setcubo($x,$y,$z,$w)
-    {
-        $this->cubo[$x][$y][$z]=$w;
-
-    }
-
-    public function update($x,$y,$z,$w)
-    {
-        $this->cubo[$x][$y][$z]=$w;
-
-    }
-    public function query($i,$f){
-        $this->sum=0;
-
-        $x=$i[0];
-        $y=$i[1];
-        $z=$i[2];
-        $fx=$f[0];
-        $fy=$f[1];
-        $fz=$f[2];
-
-        for($x=$i[0];$x<=$fx;$x++)
-        {
-
-            for($y=$i[0];$y<=$fy;$y++){
-
-
-                for($z=$i[0];$z<=$fz;$z++)
-                {
-                    $this->sum=$this->cubo[$x][$y][$z]+$this->sum;
-
-
-
-                }
-
-            }
-
-        }
-
-
-
-    return $this->sum;
     }
 
 
