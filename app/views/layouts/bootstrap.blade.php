@@ -113,7 +113,7 @@
                 <div class="btn-group">
                   <li class="{{$current['reportes']}}"><a  class="hi-perfil glyphicon-print" data-toggle="ropown" data-hover="dropdown">Reportes</a>
                     <ul class="dropdown-menu"  >
-                      <li><a href="{{URL::route('/reportes/asesores_municipio')}}" target="_blank">Usuarios</a></li>
+                      <li><a href="{{URL::route('/reportes/usuarios')}}" target="_blank">Usuarios</a></li>
 
 
 
